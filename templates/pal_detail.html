@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+
+{% block title %}{{ pal.name }} - PALDEX{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-4">
+        <div class="card">
+            {% if pal.image_url %}
+            <div class="text-center p-3">
+                <img src="{{ pal.image_url }}" class="img-fluid rounded" alt="{{ pal.name }}" 
+                     style="max-width: 100%; height: auto; max-height: 300px; object-fit: contain;" 
+                     loading="lazy" decoding="async">
+            </div>
+            {% endif %}
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-start mb-3">
+                    <h2 class="card-title">{{ pal.name }}</h2>
+                    {% if pal.no and pal.no != -1 %}
+                    <span class="badge bg-secondary fs-6">#{{ pal.no }}</span>
+                    {% endif %}
+                </div>
+                
+                {% if elements %}
+                <div class="mb-3">
+                    <h6><i class="fas fa-fire me-2"></i>Elements</h6>
+                    {% for element in elements %}
+                    <span class="badge bg-info element-badge">{{ element.name }}</span>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                
+                <a href="/" class="btn btn-outline-primary">
+                    <i class="fas fa-arrow-left me-2"></i>Back to All Pals
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-8">
+        <!-- Work Suitabilities -->
+        {% if work_suitabilities %}
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-tools me-2"></i>Work Suitabilities</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    {% for ws in work_suitabilities %}
+                    <div class="col-md-6 mb-2">
+                        <div class="d-flex align-items-center">
+                            <span class="suitability-level level-{{ ws.level }}">{{ ws.level }}</span>
+                            <span class="fw-medium">{{ ws.name }}</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        
+        <!-- Breeding Combinations -->
+        {% if breeding_as_parent or breeding_as_child %}
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-heart me-2"></i>Breeding Information</h5>
+            </div>
+            <div class="card-body">
+                
+                <!-- As Parent -->
+                {% if breeding_as_parent %}
+                <div class="mb-4">
+                    <h6 class="text-primary">Can Breed With:</h6>
+                    {% for combo in breeding_as_parent %}
+                    <div class="breeding-card">
+                        <div class="row align-items-center">
+                            <div class="col-md-8">
+                                <div class="d-flex align-items-center mb-2">
+                                    {% if combo.parent1_name == pal.name %}
+                                    <span class="fw-bold me-2">{{ combo.parent2_name }}</span>
+                                    {% else %}
+                                    <span class="fw-bold me-2">{{ combo.parent1_name }}</span>
+                                    {% endif %}
+                                    <i class="fas fa-plus mx-2 text-muted"></i>
+                                    <span class="fw-bold">{{ pal.name }}</span>
+                                    <i class="fas fa-equals mx-2 text-muted"></i>
+                                    <span class="fw-bold text-success">{{ combo.child_name }}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4 text-end">
+                                <a href="/pal/{{ combo.child_id }}" class="btn btn-sm btn-outline-primary">
+                                    <i class="fas fa-eye me-1"></i>View Child
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                
+                <!-- As Child -->
+                {% if breeding_as_child %}
+                <div>
+                    <h6 class="text-success">Bred From:</h6>
+                    {% for combo in breeding_as_child %}
+                    <div class="breeding-card">
+                        <div class="row align-items-center">
+                            <div class="col-md-8">
+                                <div class="d-flex align-items-center mb-2">
+                                    <a href="/pal/{{ combo.parent1_id }}" class="text-decoration-none">
+                                        <span class="fw-bold me-2">{{ combo.parent1_name }}</span>
+                                    </a>
+                                    <i class="fas fa-plus mx-2 text-muted"></i>
+                                    <a href="/pal/{{ combo.parent2_id }}" class="text-decoration-none">
+                                        <span class="fw-bold">{{ combo.parent2_name }}</span>
+                                    </a>
+                                    <i class="fas fa-equals mx-2 text-muted"></i>
+                                    <span class="fw-bold text-success">{{ pal.name }}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4 text-end">
+                                <a href="/pal/{{ combo.parent1_id }}" class="btn btn-sm btn-outline-secondary me-1">
+                                    <i class="fas fa-eye me-1"></i>Parent 1
+                                </a>
+                                <a href="/pal/{{ combo.parent2_id }}" class="btn btn-sm btn-outline-secondary">
+                                    <i class="fas fa-eye me-1"></i>Parent 2
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                
+            </div>
+        </div>
+        {% endif %}
+        
+        <!-- No Breeding Info -->
+        {% if not work_suitabilities and not breeding_as_parent and not breeding_as_child %}
+        <div class="card">
+            <div class="card-body text-center py-5">
+                <i class="fas fa-info-circle fa-2x text-muted mb-3"></i>
+                <h5 class="text-muted">No Additional Information</h5>
+                <p class="text-muted">This pal doesn't have any work suitabilities or breeding combinations recorded.</p>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %} 

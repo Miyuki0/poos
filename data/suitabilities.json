@@ -1,0 +1,14 @@
+[
+    {"name": "Handiwork"},
+    {"name": "Transporting"},
+    {"name": "Farming"},
+    {"name": "Gathering"},
+    {"name": "Mining"},
+    {"name": "Planting"},
+    {"name": "Lumbering"},
+    {"name": "Medicine Production"},
+    {"name": "Kindling"},
+    {"name": "Watering"},
+    {"name": "Cooling"},
+    {"name": "Electricity"}
+  ]

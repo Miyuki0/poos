@@ -1,0 +1,12 @@
+[
+    {"name": "Fire"},
+    {"name": "Water"},
+    {"name": "Grass"},
+    {"name": "Electric"},
+    {"name": "Ice"},
+    {"name": "Dark"},
+    {"name": "Light"},
+    {"name": "Normal"},
+    {"name": "Dragon"},
+    {"name": "Ground"}
+]

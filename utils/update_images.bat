@@ -1,0 +1,4 @@
+@echo off
+echo Updating pals.json with image URLs...
+
+powershell -Command "$pals = Get-Content 'data/pals.json' | ConvertFrom-Json; $staticDir = 'static'; $updated = 0; foreach ($pal in $pals) { if ($pal.name) { $normalizedName = $pal.name -replace ' ', '_'; $imageUrl = ''; $patterns = @('300px-' + $normalizedName + '_icon.webp', $normalizedName + '_icon.webp', '300px-' + $normalizedName + '_icon.png', $normalizedName + '_icon.png'); foreach ($pattern in $patterns) { if (Test-Path (Join-Path $staticDir $pattern)) { $imageUrl = '/static/' + $pattern; break; } }; if ($imageUrl -and $pal.image_url -ne $imageUrl) { $pal.image_url = $imageUrl; $updated++; Write-Host 'Updated' $pal.name ':' $imageUrl; } } }; $pals | ConvertTo-Json -Depth 10 | Set-Content 'data/pals.json' -Encoding UTF8; Write-Host 'Updated' $updated 'pals with image URLs'; Write-Host 'Total pals:' $pals.Count" 

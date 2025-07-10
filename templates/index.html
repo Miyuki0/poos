@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block title %}All Pals - PALDEX{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-6">
+        <h1><i class="fas fa-dragon me-2"></i>All Pals</h1>
+        <p class="text-muted">Click on any pal to view detailed information</p>
+    </div>
+    <div class="col-md-6">
+        <div class="input-group search-box ms-auto">
+            <span class="input-group-text"><i class="fas fa-search"></i></span>
+            <input type="text" class="form-control" id="searchInput" placeholder="Search pals by name...">
+        </div>
+    </div>
+</div>
+
+<div class="row" id="palsGrid">
+    {% for pal in pals %}
+    <div class="col-md-4 col-lg-3 mb-4 pal-item" data-name="{{ pal.name.lower() }}">
+        <div class="card pal-card h-100 shadow-lg border-0" style="border-radius: 20px; overflow: hidden; background: linear-gradient(135deg, #f3e8ff 0%, #ede9fe 100%); cursor: pointer; transition: box-shadow 0.3s, transform 0.3s;" onclick="window.location.href='/pal/{{ pal.id }}'">
+            {% if pal.image_url %}
+            <div style="background: linear-gradient(135deg, #a78bfa 0%, #c084fc 100%); padding: 16px; display: flex; justify-content: center; align-items: center;">
+                <img src="{{ pal.image_url }}" class="pal-image" alt="{{ pal.name }}" loading="lazy" decoding="async" style="width: 120px; height: 120px; object-fit: contain; border-radius: 16px; box-shadow: 0 4px 16px rgba(139,92,246,0.10); background: white;">
+            </div>
+            {% endif %}
+            <div class="card-body text-center" style="padding: 1.5rem 1rem 1rem 1rem;">
+                <div class="d-flex justify-content-center align-items-center mb-2 gap-2">
+                    <h5 class="card-title mb-0 fw-bold" style="color: #7c3aed; letter-spacing: 0.5px;">{{ pal.name }}</h5>
+                    {% if pal.no and pal.no != -1 %}
+                    <span class="badge" style="background: linear-gradient(135deg, #a78bfa 0%, #c084fc 100%); color: #fff; font-size: 1em;">#{{ pal.no }}</span>
+                    {% endif %}
+                </div>
+                {% if pal.elements %}
+                <div class="mb-2">
+                    {% for element in pal.elements.split(',') %}
+                    <span class="badge element-badge" style="background: linear-gradient(135deg, #e879f9 0%, #a78bfa 100%); color: #fff; font-size: 0.9em; margin: 0 2px;">{{ element.strip() }}</span>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                <div class="text-muted small mt-2" style="font-size: 0.95em;">
+                    <i class="fas fa-info-circle me-1"></i>
+                    Click to view details
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% if not pals %}
+<div class="text-center py-5">
+    <i class="fas fa-dragon fa-3x text-muted mb-3"></i>
+    <h3 class="text-muted">No Pals Found</h3>
+    <p class="text-muted">No pals have been added to the database yet.</p>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('searchInput');
+    const palItems = document.querySelectorAll('.pal-item');
+    
+    searchInput.addEventListener('input', function() {
+        const searchTerm = this.value.toLowerCase();
+        
+        palItems.forEach(item => {
+            const palName = item.getAttribute('data-name');
+            if (palName.includes(searchTerm)) {
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    });
+    
+    // Add keyboard navigation
+    searchInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            const visiblePals = Array.from(palItems).filter(item => 
+                item.style.display !== 'none'
+            );
+            if (visiblePals.length > 0) {
+                visiblePals[0].querySelector('.pal-card').click();
+            }
+        }
+    });
+});
+</script>
+{% endblock %} 

@@ -1,0 +1,1132 @@
+[
+  {
+    "no": "-1",
+    "name": "Eye of Cthulu",
+    "image_url": ""
+  },
+  {
+    "no": "-1",
+    "name": "Enchanted Sword",
+    "image_url": ""
+  },
+  {
+    "no": "-1",
+    "name": "Illuminant Slime",
+    "image_url": ""
+  },
+  {
+    "no": "-1",
+    "name": "Illuminant Bat",
+    "image_url": ""
+  },
+  {
+    "no": "-1",
+    "name": "Rainbow Slime",
+    "image_url": ""
+  },
+  {
+    "no": "-1",
+    "name": "Cave Bat",
+    "image_url": ""
+  },
+  {
+    "no": "-1",
+    "name": "Red Slime",
+    "image_url": ""
+  },
+  {
+    "no": "-1",
+    "name": "Purple Slime",
+    "image_url": ""
+  },
+  {
+    "no": "-1",
+    "name": "Demon Eye",
+    "image_url": ""
+  },
+  {
+    "no": "-1",
+    "name": "Green Slime",
+    "image_url": ""
+  },
+  {
+    "no": "-1",
+    "name": "Blue Slime",
+    "image_url": ""
+  },
+  {
+    "no": "1",
+    "name": "Lamball",
+    "image_url": "static/Lamball.webp"
+  },
+  {
+    "no": "2",
+    "name": "Cattiva",
+    "image_url": ""
+  },
+  {
+    "no": "3",
+    "name": "Chikipi",
+    "image_url": "static/Chikipi.webp"
+  },
+  {
+    "no": "4",
+    "name": "Lifmunk",
+    "image_url": "static/Lifmunk.webp"
+  },
+  {
+    "no": "5",
+    "name": "Foxparks",
+    "image_url": "static/Foxparks.webp"
+  },
+  {
+    "no": "5B",
+    "name": "Foxparks Cryst",
+    "image_url": "static/Foxparks_Cryst.webp"
+  },
+  {
+    "no": "6",
+    "name": "Fuack",
+    "image_url": "static/Fuack.webp"
+  },
+  {
+    "no": "6B",
+    "name": "Fuack Ignis",
+    "image_url": "static/Fuack_Ignis.webp"
+  },
+  {
+    "no": "7",
+    "name": "Sparkit",
+    "image_url": "static/Sparkit.webp"
+  },
+  {
+    "no": "8",
+    "name": "Tanzee",
+    "image_url": "static/Tanzee.webp"
+  },
+  {
+    "no": "9",
+    "name": "Rooby",
+    "image_url": "static/Rooby.webp"
+  },
+  {
+    "no": "10",
+    "name": "Pengullet",
+    "image_url": "static/Pengullet.webp"
+  },
+  {
+    "no": "10B",
+    "name": "Pengullet Lux",
+    "image_url": "static/Pengullet_Lux.png"
+  },
+  {
+    "no": "11",
+    "name": "Penking",
+    "image_url": "static/Penking.webp"
+  },
+  {
+    "no": "11B",
+    "name": "Penking Lux",
+    "image_url": "static/Penking_Lux.webp"
+  },
+  {
+    "no": "12",
+    "name": "Jolthog",
+    "image_url": "static/Jolthog.webp"
+  },
+  {
+    "no": "12B",
+    "name": "Jolthog Cryst",
+    "image_url": "static/Jolthog_Cryst.webp"
+  },
+  {
+    "no": "13",
+    "name": "Gumoss",
+    "image_url": "static/Gumoss.webp"
+  },
+  {
+    "no": "13B",
+    "name": "Special Flower Gumoss",
+    "image_url": ""
+  },
+  {
+    "no": "14",
+    "name": "Vixy",
+    "image_url": "static/Vixy.webp"
+  },
+  {
+    "no": "15",
+    "name": "Hoocrates",
+    "image_url": "static/Hoocrates.webp"
+  },
+  {
+    "no": "16",
+    "name": "Teafant",
+    "image_url": "static/Teafant.webp"
+  },
+  {
+    "no": "17",
+    "name": "Depresso",
+    "image_url": "static/Depresso.webp"
+  },
+  {
+    "no": "18",
+    "name": "Cremis",
+    "image_url": "static/Cremis.png"
+  },
+  {
+    "no": "19",
+    "name": "Daedream",
+    "image_url": ""
+  },
+  {
+    "no": "20",
+    "name": "Rushoar",
+    "image_url": "static/Rushoar.webp"
+  },
+  {
+    "no": "21",
+    "name": "Nox",
+    "image_url": "static/Nox.webp"
+  },
+  {
+    "no": "22",
+    "name": "Fuddler",
+    "image_url": "static/Fuddler.webp"
+  },
+  {
+    "no": "23",
+    "name": "Killamari",
+    "image_url": "static/Killamari.webp"
+  },
+  {
+    "no": "23B",
+    "name": "Killamari Primo",
+    "image_url": "static/Killamari_Primo.webp"
+  },
+  {
+    "no": "24",
+    "name": "Mau",
+    "image_url": "static/Mau.webp"
+  },
+  {
+    "no": "24B",
+    "name": "Mau Cryst",
+    "image_url": "static/Mau_Cryst.webp"
+  },
+  {
+    "no": "25",
+    "name": "Celaray",
+    "image_url": "static/Celaray.webp"
+  },
+  {
+    "no": "25B",
+    "name": "Celaray Lux",
+    "image_url": "static/Celaray_Lux.webp"
+  },
+  {
+    "no": "26",
+    "name": "Direhowl",
+    "image_url": "static/Direhowl.webp"
+  },
+  {
+    "no": "27",
+    "name": "Tocotoco",
+    "image_url": "static/Tocotoco.webp"
+  },
+  {
+    "no": "28",
+    "name": "Flopie",
+    "image_url": "static/Flopie.webp"
+  },
+  {
+    "no": "29",
+    "name": "Mozzarina",
+    "image_url": "static/Mozzarina.webp"
+  },
+  {
+    "no": "30",
+    "name": "Bristla",
+    "image_url": "static/Bristla.webp"
+  },
+  {
+    "no": "31",
+    "name": "Gobfin",
+    "image_url": "static/Gobfin.webp"
+  },
+  {
+    "no": "31B",
+    "name": "Gobfin Ignis",
+    "image_url": "static/Gobfin_Ignis.webp"
+  },
+  {
+    "no": "32",
+    "name": "Hangyu",
+    "image_url": "static/Hangyu.webp"
+  },
+  {
+    "no": "32B",
+    "name": "Hangyu Cryst",
+    "image_url": "static/Hangyu_Cryst.webp"
+  },
+  {
+    "no": "33",
+    "name": "Mossanda",
+    "image_url": "static/Mossanda.webp"
+  },
+  {
+    "no": "33B",
+    "name": "Mossanda Lux",
+    "image_url": "static/Mossanda_Lux.webp"
+  },
+  {
+    "no": "34",
+    "name": "Woolipop",
+    "image_url": "static/Woolipop.webp"
+  },
+  {
+    "no": "35",
+    "name": "Caprity",
+    "image_url": "static/Caprity.webp"
+  },
+  {
+    "no": "35B",
+    "name": "Caprity Noct",
+    "image_url": "static/Caprity_Noct.webp"
+  },
+  {
+    "no": "36",
+    "name": "Melpaca",
+    "image_url": "static/Melpaca.webp"
+  },
+  {
+    "no": "37",
+    "name": "Eikthyrdeer",
+    "image_url": "static/Eikthyrdeer.webp"
+  },
+  {
+    "no": "37B",
+    "name": "Eikthyrdeer Terra",
+    "image_url": "static/Eikthyrdeer_Terra.webp"
+  },
+  {
+    "no": "38",
+    "name": "Nitewing",
+    "image_url": "static/Nitewing.webp"
+  },
+  {
+    "no": "39",
+    "name": "Ribbuny",
+    "image_url": "static/Ribbuny.webp"
+  },
+  {
+    "no": "39B",
+    "name": "Ribbuny Botan",
+    "image_url": "static/Ribbuny_Botan.webp"
+  },
+  {
+    "no": "40",
+    "name": "Incineram",
+    "image_url": "static/Incineram.webp"
+  },
+  {
+    "no": "40B",
+    "name": "Incineram Noct",
+    "image_url": "static/Incineram_Noct.webp"
+  },
+  {
+    "no": "41",
+    "name": "Cinnamoth",
+    "image_url": "static/Cinnamoth.webp"
+  },
+  {
+    "no": "42",
+    "name": "Arsox",
+    "image_url": "static/Arsox.webp"
+  },
+  {
+    "no": "43",
+    "name": "Dumud",
+    "image_url": "static/Dumud.webp"
+  },
+  {
+    "no": "43B",
+    "name": "Dumud Gild",
+    "image_url": "static/Dumud_Gild.webp"
+  },
+  {
+    "no": "44",
+    "name": "Cawgnito",
+    "image_url": "static/Cawgnito.webp"
+  },
+  {
+    "no": "45",
+    "name": "Leezpunk",
+    "image_url": "static/Leezpunk.webp"
+  },
+  {
+    "no": "45B",
+    "name": "Leezpunk Ignis",
+    "image_url": "static/Leezpunk_Ignis.webp"
+  },
+  {
+    "no": "46",
+    "name": "Loupmoon",
+    "image_url": "static/Loupmoon.webp"
+  },
+  {
+    "no": "46B",
+    "name": "Loupmoon Cryst",
+    "image_url": "static/Loupmoon_Cryst.webp"
+  },
+  {
+    "no": "47",
+    "name": "Galeclaw",
+    "image_url": "static/Galeclaw.webp"
+  },
+  {
+    "no": "48",
+    "name": "Robinquill",
+    "image_url": "static/Robinquill.webp"
+  },
+  {
+    "no": "48B",
+    "name": "Robinquill Terra",
+    "image_url": "static/Robinquill_Terra.webp"
+  },
+  {
+    "no": "49",
+    "name": "Gorirat",
+    "image_url": "static/Gorirat.webp"
+  },
+  {
+    "no": "49B",
+    "name": "Gorirat Terra",
+    "image_url": ""
+  },
+  {
+    "no": "50",
+    "name": "Beegarde",
+    "image_url": "static/Beegarde.webp"
+  },
+  {
+    "no": "51",
+    "name": "Elizabee",
+    "image_url": "static/Elizabee.webp"
+  },
+  {
+    "no": "52",
+    "name": "Grintale",
+    "image_url": "static/Grintale.webp"
+  },
+  {
+    "no": "53",
+    "name": "Swee",
+    "image_url": "static/Swee.webp"
+  },
+  {
+    "no": "54",
+    "name": "Sweepa",
+    "image_url": "static/Sweepa.webp"
+  },
+  {
+    "no": "55",
+    "name": "Chillet",
+    "image_url": "static/Chillet.webp"
+  },
+  {
+    "no": "55B",
+    "name": "Chillet Ignis",
+    "image_url": "static/Chillet_Ignis.webp"
+  },
+  {
+    "no": "56",
+    "name": "Univolt",
+    "image_url": "static/Univolt.webp"
+  },
+  {
+    "no": "57",
+    "name": "Foxcicle",
+    "image_url": "static/Foxcicle.webp"
+  },
+  {
+    "no": "58",
+    "name": "Pyrin",
+    "image_url": "static/Pyrin.webp"
+  },
+  {
+    "no": "58B",
+    "name": "Pyrin Noct",
+    "image_url": "static/Pyrin_Noct.webp"
+  },
+  {
+    "no": "59",
+    "name": "Reindrix",
+    "image_url": "static/Reindrix.webp"
+  },
+  {
+    "no": "60",
+    "name": "Rayhound",
+    "image_url": "static/Rayhound.webp"
+  },
+  {
+    "no": "61",
+    "name": "Kitsun",
+    "image_url": "static/Kitsun.webp"
+  },
+  {
+    "no": "61B",
+    "name": "Kitsun Noct",
+    "image_url": "static/Kitsun_Noct.webp"
+  },
+  {
+    "no": "62",
+    "name": "Dazzi",
+    "image_url": "static/Dazzi.webp"
+  },
+  {
+    "no": "62B",
+    "name": "Dazzi Noct",
+    "image_url": "static/Dazzi_Noct.webp"
+  },
+  {
+    "no": "63",
+    "name": "Lunaris",
+    "image_url": "static/Lunaris.webp"
+  },
+  {
+    "no": "64",
+    "name": "Dinossom",
+    "image_url": "static/Dinossom.webp"
+  },
+  {
+      "no": "64",
+    "name": "Dinossom Lux",
+    "image_url": "static/Dinossom_Lux.webp"
+  },
+  {
+    "no": "65",
+    "name": "Surfent",
+    "image_url": "static/Surfent.webp"
+  },
+  {
+    "no": "65B",
+    "name": "Surfent Terra",
+    "image_url": ""
+  },
+  {
+    "no": "66",
+    "name": "Maraith",
+    "image_url": "static/Maraith.webp"
+  },
+  {
+    "no": "67",
+    "name": "Digtoise",
+    "image_url": "static/Digtoise.webp"
+  },
+  {
+    "no": "68",
+    "name": "Tombat",
+    "image_url": "static/Tombat.webp"
+  },
+  {
+    "no": "69",
+    "name": "Lovander",
+    "image_url": "static/Lovander.webp"
+  },
+  {
+    "no": "70",
+    "name": "Flambelle",
+    "image_url": "static/Flambelle.webp"
+  },
+  {
+    "no": "71",
+    "name": "Vanwyrm",
+    "image_url": "static/Vanwyrm.webp"
+  },
+  {
+    "no": "71B",
+    "name": "Vanwyrm Cryst",
+    "image_url": "static/Vanwyrm_Cryst.webp"
+  },
+  {
+    "no": "72",
+    "name": "Bushi",
+    "image_url": "static/Bushi.webp"
+  },
+  {
+    "no": "72B",
+    "name": "Bushi Noct",
+    "image_url": "static/Bushi_Noct.webp"
+  },
+  {
+    "no": "73",
+    "name": "Beakon",
+    "image_url": "static/Beakon.webp"
+  },
+  {
+    "no": "74",
+    "name": "Ragnahawk",
+    "image_url": "static/Ragnahawk.webp"
+  },
+  {
+    "no": "75",
+    "name": "Katress",
+    "image_url": "static/Katress.webp"
+  },
+  {
+    "no": "75B",
+    "name": "Katress Ignis",
+    "image_url": "static/Katress_Ignis.webp"
+  },
+  {
+    "no": "76",
+    "name": "Wixen",
+    "image_url": "static/Wixen.webp"
+  },
+  {
+    "no": "76B",
+    "name": "Wixen Noct",
+    "image_url": "static/Wixen_Noct.webp"
+  },
+  {
+    "no": "77",
+    "name": "Verdash",
+    "image_url": "static/Verdash.webp"
+  },
+  {
+    "no": "78",
+    "name": "Vaelet",
+    "image_url": "static/Vaelet.png"
+  },
+  {
+    "no": "79",
+    "name": "Sibelyx",
+    "image_url": "static/Sibelyx.webp"
+  },
+  {
+    "no": "80",
+    "name": "Elphidran",
+    "image_url": "static/Elphidran.webp"
+  },
+  {
+    "no": "80B",
+    "name": "Elphidran Aqua",
+    "image_url": "static/Elphidran_Aqua.webp"
+  },
+  {
+    "no": "81",
+    "name": "Kelpsea",
+    "image_url": "static/Kelpsea.webp"
+  },
+  {
+    "no": "81B",
+    "name": "Kelpsea Ignis",
+    "image_url": "static/Kelpsea_Ignis.webp"
+  },
+  {
+    "no": "82",
+    "name": "Azurobe",
+    "image_url": "static/Azurobe.webp"
+  },
+  {
+    "no": "82B",
+    "name": "Azurobe Cryst",
+    "image_url": "static/Azurobe_Cryst.webp"
+  },
+  {
+    "no": "83",
+    "name": "Cryolinx",
+    "image_url": "static/Cryolinx.webp"
+  },
+  {
+    "no": "83B",
+    "name": "Cryolinx Terra",
+    "image_url": "static/Cryolinx_Terra.webp"
+  },
+  {
+    "no": "84",
+    "name": "Blazehowl",
+    "image_url": "static/Blazehowl.webp"
+  },
+  {
+    "no": "84B",
+    "name": "Blazehowl Noct",
+    "image_url": "static/Blazehowl_Noct.webp"
+  },
+  {
+    "no": "85",
+    "name": "Relaxaurus",
+    "image_url": "static/Relaxaurus.webp"
+  },
+  {
+    "no": "85B",
+    "name": "Relaxaurus Lux",
+    "image_url": "static/Relaxaurus_Lux.webp"
+  },
+  {
+    "no": "86",
+    "name": "Broncherry",
+    "image_url": "static/Broncherry.webp"
+  },
+  {
+    "no": "86B",
+    "name": "Broncherry Aqua",
+    "image_url": "static/Broncherry_Aqua.webp"
+  },
+  {
+    "no": "87",
+    "name": "Petallia",
+    "image_url": "static/Petallia.webp"
+  },
+  {
+    "no": "88",
+    "name": "Reptyro",
+    "image_url": "static/Reptyro.webp"
+  },
+  {
+    "no": "88B",
+    "name": "Reptyro Cryst",
+    "image_url": "static/Reptyro_Cryst.webp"
+  },
+  {
+    "no": "89",
+    "name": "Kingpaca",
+    "image_url": "static/Kingpaca.webp"
+  },
+  {
+    "no": "89B",
+    "name": "Kingpaca Cryst",
+    "image_url": "static/Kingpaca_Cryst.webp"
+  },
+  {
+    "no": "90",
+    "name": "Mammorest",
+    "image_url": "static/Mammorest.webp"
+  },
+  {
+    "no": "90B",
+    "name": "Mammorest Cryst",
+    "image_url": "static/Mammorest_Cryst.webp"
+  },
+  {
+    "no": "91",
+    "name": "Wumpo",
+    "image_url": "static/Wumpo.webp"
+  },
+  {
+    "no": "91B",
+    "name": "Wumpo Botan",
+    "image_url": "static/Wumpo_Botan.webp"
+  },
+  {
+    "no": "92",
+    "name": "Warsect",
+    "image_url": "static/Warsect.webp"
+  },
+  {
+    "no": "92B",
+    "name": "Warsect Terra",
+    "image_url": "static/Warsect_Terra.webp"
+  },
+  {
+    "no": "93",
+    "name": "Fenglope",
+    "image_url": "static/Fenglope.webp"
+  },
+  {
+    "no": "93B",
+    "name": "Fenglope Lux",
+    "image_url": "static/Fenglope_Lux.webp"
+  },
+  {
+    "no": "94",
+    "name": "Felbat",
+    "image_url": "static/Felbat.webp"
+  },
+  {
+    "no": "95",
+    "name": "Quivern",
+    "image_url": "static/Quivern.webp"
+  },
+  {
+    "no": "95B",
+    "name": "Quivern Botan",
+    "image_url": "static/Quivern_Botan.webp"
+  },
+  {
+    "no": "96",
+    "name": "Blazamut",
+    "image_url": "static/Blazamut.webp"
+  },
+  {
+    "no": "96B",
+    "name": "Blazamut Ryu",
+    "image_url": "static/Blazamut_Ryu.webp"
+  },
+  {
+    "no": "97",
+    "name": "Helzephyr",
+    "image_url": "static/Helzephyr.webp"
+  },
+  {
+    "no": "97B",
+    "name": "Helzephyr Lux",
+    "image_url": "static/Helzephyr_Lux.webp"
+  },
+  {
+    "no": "98",
+    "name": "Astegon",
+    "image_url": "static/Astegon.webp"
+  },
+  {
+    "no": "99",
+    "name": "Menasting",
+    "image_url": "static/Menasting.webp"
+  },
+  {
+    "no": "99B",
+    "name": "Menasting Terra",
+    "image_url": "static/Menasting_Terra.webp"
+  },
+  {
+    "no": "100",
+    "name": "Anubis",
+    "image_url": "static/Anubis.webp"
+  },
+  {
+    "no": "101",
+    "name": "Jormuntide",
+    "image_url": "static/Jormuntide.webp"
+  },
+  {
+    "no": "101B",
+    "name": "Jormuntide Ignis",
+    "image_url": "static/Jormuntide_Ignis.webp"
+  },
+  {
+    "no": "102",
+    "name": "Suzaku",
+    "image_url": "static/Suzaku.webp"
+  },
+  {
+    "no": "102B",
+    "name": "Suzaku Aqua",
+    "image_url": "static/Suzaku_Aqua.webp"
+  },
+  {
+    "no": "103",
+    "name": "Grizzbolt",
+    "image_url": "static/Grizzbolt.webp"
+  },
+  {
+    "no": "104",
+    "name": "Lyleen",
+    "image_url": "static/Lyleen.webp"
+  },
+  {
+    "no": "104B",
+    "name": "Lyleen Noct",
+    "image_url": "static/Lyleen_Noct.webp"
+  },
+  {
+    "no": "105",
+    "name": "Faleris",
+    "image_url": "static/Faleris.webp"
+  },
+  {
+    "no": "105B",
+    "name": "Faleris Aqua",
+    "image_url": "static/Faleris_Aqua.webp"
+  },
+  {
+    "no": "106",
+    "name": "Orserk",
+    "image_url": "static/Orserk.webp"
+  },
+  {
+    "no": "107",
+    "name": "Shadowbeak",
+    "image_url": "static/Shadowbeak.webp"
+  },
+  {
+    "no": "108",
+    "name": "Paladius",
+    "image_url": "static/Paladius.webp"
+  },
+  {
+    "no": "109",
+    "name": "Necromus",
+    "image_url": "static/Necromus.webp"
+  },
+  {
+    "no": "110",
+    "name": "Frostallion",
+    "image_url": "static/Frostallion.webp"
+  },
+  {
+    "no": "110B",
+    "name": "Frostallion Noct",
+    "image_url": "static/Frostallion_Noct.webp"
+  },
+  {
+    "no": "111",
+    "name": "Jetragon",
+    "image_url": ""
+  },
+  {
+    "no": "112",
+    "name": "Bellanoir",
+    "image_url": "static/Bellanoir.webp"
+  },
+  {
+    "no": "112B",
+    "name": "Bellanoir Libero",
+    "image_url": "static/Bellanoir_Libero.webp"
+  },
+  {
+    "no": "113",
+    "name": "Selyne",
+    "image_url": "static/Selyne.webp"
+  },
+  {
+    "no": "114",
+    "name": "Croajiro",
+    "image_url": "static/Croajiro.webp"
+  },
+  {
+    "no": "114B",
+    "name": "Croajiro Noct",
+    "image_url": "static/Croajiro_Noct.webp"
+  },
+  {
+    "no": "115",
+    "name": "Lullu",
+    "image_url": "static/Lullu.webp"
+  },
+  {
+    "no": "116",
+    "name": "Shroomer",
+    "image_url": "static/Shroomer.webp"
+  },
+  {
+    "no": "116B",
+    "name": "Shroomer Noct",
+    "image_url": "static/Shroomer_Noct.webp"
+  },
+  {
+    "no": "117",
+    "name": "Kikit",
+    "image_url": "static/Kikit.webp"
+  },
+  {
+    "no": "118",
+    "name": "Sootseer",
+    "image_url": "static/Sootseer.webp"
+  },
+  {
+    "no": "119",
+    "name": "Prixter",
+    "image_url": "static/Prixter.webp"
+  },
+  {
+    "no": "120",
+    "name": "Knocklem",
+    "image_url": "static/Knocklem.webp"
+  },
+  {
+    "no": "121",
+    "name": "Yakumo",
+    "image_url": "static/Yakumo.webp"
+  },
+  {
+    "no": "122",
+    "name": "Dogen",
+    "image_url": "static/Dogen.webp"
+  },
+  {
+    "no": "123",
+    "name": "Dazemu",
+    "image_url": "static/Dazemu.webp"
+  },
+  {
+    "no": "124",
+    "name": "Mimog",
+    "image_url": "static/Mimog.webp"
+  },
+  {
+    "no": "125",
+    "name": "Xenovader",
+    "image_url": "static/Xenovader.webp"
+  },
+  {
+    "no": "126",
+    "name": "Xenogard",
+    "image_url": "static/Xenogard.webp"
+  },
+  {
+    "no": "127",
+    "name": "Xenolord",
+    "image_url": "static/Xenolord.webp"
+  },
+  {
+    "no": "128",
+    "name": "Nitemary",
+    "image_url": "static/Nitemary.png"
+  },
+  {
+    "no": "129",
+    "name": "Starryon",
+    "image_url": "static/Starryon.png"
+  },
+  {
+    "no": "130",
+    "name": "Silvegis",
+    "image_url": "static/Silvegis.png"
+  },
+  {
+    "no": "131",
+    "name": "Smokie",
+    "image_url": "static/Smokie.png"
+  },
+  {
+    "no": "132",
+    "name": "Celesdir",
+    "image_url": "static/Celesdir.png"
+  },
+  {
+    "no": "133",
+    "name": "Omascul",
+    "image_url": "static/Omascul.webp"
+  },
+  {
+    "no": "134",
+    "name": "Splatterina",
+    "image_url": "static/Splatterina.png"
+  },
+  {
+    "no": "135",
+    "name": "Tarantriss",
+    "image_url": "static/Tarantriss.png"
+  },
+  {
+    "no": "136",
+    "name": "Azurmane",
+    "image_url": "static/Azurmane.webp"
+  },
+  {
+    "no": "137",
+    "name": "Bastigor",
+    "image_url": "static/Bastigor.png"
+  },
+  {
+    "no": "138",
+    "name": "Prunelia",
+    "image_url": "static/Prunelia.webp"
+  },
+  {
+    "no": "139",
+    "name": "Nyafia",
+    "image_url": "static/Nyafia.png"
+  },
+  {
+    "no": "140",
+    "name": "Gildane",
+    "image_url": "static/Gildane.png"
+  },
+  {
+    "no": "141",
+    "name": "Herbil",
+    "image_url": "static/Herbil.webp"
+  },
+  {
+    "no": "142",
+    "name": "Icelyn",
+    "image_url": "static/Icelyn.webp"
+  },
+  {
+    "no": "143",
+    "name": "Frostplume",
+    "image_url": "static/Frostplume.webp"
+  },
+  {
+    "no": "144",
+    "name": "Palumba",
+    "image_url": "static/Palumba.webp"
+  },
+  {
+    "no": "145",
+    "name": "Braloha",
+    "image_url": "static/Braloha.webp"
+  },
+  {
+    "no": "146",
+    "name": "Munchill",
+    "image_url": "static/Munchill.webp"
+  },
+  {
+    "no": "147",
+    "name": "Polapup",
+    "image_url": "static/Polapup.webp"
+  },
+  {
+    "no": "148",
+    "name": "Turtacle",
+    "image_url": "static/Turtacle.webp"
+  },
+  {
+    "no": "148B",
+    "name": "Turtacle Terra",
+    "image_url": "static/Turtacle_Terra.webp"
+  },
+  {
+    "no": "149",
+    "name": "Jellroy",
+    "image_url": "static/Jellroy.webp"
+  },
+  {
+    "no": "150",
+    "name": "Jelliette",
+    "image_url": "static/Jelliette.webp"
+  },
+  {
+    "no": "151",
+    "name": "Gloopie",
+    "image_url": "static/Gloopie.webp"
+  },
+  {
+    "no": "152",
+    "name": "Finsider",
+    "image_url": "static/Finsider.webp"
+  },
+  {
+    "no": "152B",
+    "name": "Finsider Ignis",
+    "image_url": "static/Finsider_Ignis.webp"
+  },
+  {
+    "no": "153",
+    "name": "Ghangler",
+    "image_url": "static/Ghangler.webp"
+  },
+  {
+    "no": "153B",
+    "name": "Ghangler Ignis",
+    "image_url": "static/Ghangler_Ignis.webp"
+  },
+  {
+    "no": "154",
+    "name": "Whalaska",
+    "image_url": "static/Whalaska.webp"
+  },
+  {
+    "no": "154B",
+    "name": "Whalaska Ignis",
+    "image_url": "static/Whalaska_Ignis.webp"
+  },
+  {
+    "no": "155",
+    "name": "Neptilius",
+    "image_url": "static/Neptilius.webp"
+  }
+]

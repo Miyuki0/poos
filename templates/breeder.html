@@ -1,0 +1,1053 @@
+{% extends "base.html" %}
+
+{% block title %}Breeding Calculator - PALDEX{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <h1><i class="fas fa-dna me-2"></i>Breeding Calculator</h1>
+        <p class="text-muted">Select pals from the list below to see breeding combinations</p>
+    </div>
+</div>
+
+<!-- Pal Selection Section -->
+<div class="row mb-4" id="selectionSection">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-search me-2"></i>Select Pals</h5>
+            </div>
+            <div class="card-body">
+                <!-- Search Box -->
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-search"></i></span>
+                            <input type="text" class="form-control" id="palSearch" placeholder="Search pals by name...">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex justify-content-end">
+                            <button class="btn btn-outline-secondary me-2" id="clearSelection">
+                                <i class="fas fa-times me-1"></i>Clear Selection
+                            </button>
+                            <button class="btn btn-outline-info me-2" id="selectResultBtn" style="display: none;">
+                                <i class="fas fa-bullseye me-1"></i>Select Result Pal
+                            </button>
+                            <button class="btn btn-primary" id="calculateBtn" style="display: none;">
+                                <i class="fas fa-calculator me-1"></i>Calculate
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Selected Pals Display -->
+                <div class="mb-3">
+                    <h6>Selected Pals (<span id="selectedCount">0</span>):</h6>
+                    <div id="selectedPals" class="d-flex flex-wrap gap-2">
+                        <!-- Selected pals will be displayed here -->
+                    </div>
+                </div>
+                
+                <!-- Pal Grid -->
+                <div class="row" id="palsGrid">
+                    {% for pal in pals %}
+                    <div class="col-md-3 col-lg-2 mb-3 pal-item" data-name="{{ pal.name.lower() }}" data-id="{{ pal.id }}">
+                        <div class="card pal-select-card h-100" data-pal-id="{{ pal.id }}">
+                            {% if pal.image_url %}
+                                <img src="{{ pal.image_url }}" class="card-img-top pal-image" alt="{{ pal.name }}" loading="lazy" decoding="async">
+                            {% endif %}
+                            <div class="card-body p-2">
+                                <div class="d-flex justify-content-between align-items-start mb-1">
+                                    <h6 class="card-title mb-0 small">{{ pal.name }}</h6>
+                                    {% if pal.no and pal.no != '-1' %}
+                                    <small class="text-muted">#{{ pal.no }}</small>
+                                    {% endif %}
+                                </div>
+                                
+                                {% if pal.elements %}
+                                <div class="mb-1">
+                                    {% for element in pal.elements.split(',') %}
+                                    <span class="badge bg-info element-badge small">{{ element.strip() }}</span>
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+                                
+                                <div class="form-check">
+                                    <input class="form-check-input pal-checkbox" type="checkbox" 
+                                           value="{{ pal.id }}" id="pal_{{ pal.id }}">
+                                    <label class="form-check-label small" for="pal_{{ pal.id }}">
+                                        Select
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Results Section -->
+<div class="row" id="resultsSection" style="display: none;">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-chart-line me-2"></i>Breeding Results</h5>
+            </div>
+            <div class="card-body">
+                <div id="resultsContent">
+                    <div class="text-center" id="loadingResults">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <p class="mt-2">Calculating breeding combinations...</p>
+                    </div>
+                    
+                    <div id="breedingResults" style="display: none;">
+                        <div id="stepsContainer">
+                            <!-- Breeding steps will be displayed here -->
+                        </div>
+                        
+                        <div id="noCombinations" style="display: none;">
+                            <div class="text-center py-4">
+                                <i class="fas fa-info-circle fa-2x text-muted mb-3"></i>
+                                <h5 class="text-muted">No Breeding Combinations Found</h5>
+                                <p class="text-muted">The selected pals cannot breed with each other.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4 d-flex justify-content-between">
+                            <button class="btn btn-outline-primary" onclick="clearResults()">
+                                <i class="fas fa-arrow-left me-1"></i>Back to Selection
+                            </button>
+                            <button class="btn btn-outline-secondary me-2" onclick="backToBreeder()">
+                                <i class="fas fa-dna me-1"></i>Back to Breeder
+                            </button>
+                            <button class="btn btn-success" id="nextStepBtn" style="display: none;" onclick="calculateNextStep()">
+                                <i class="fas fa-forward me-1"></i>Calculate Next Step
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Breeding Path Modal -->
+<div class="modal fade" id="breedingPathModal" tabindex="-1" aria-labelledby="breedingPathModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="breedingPathModalLabel">
+                    <i class="fas fa-project-diagram me-2"></i>Breeding Path for <span id="modalPalName"></span>
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="breedingPathContent">
+                    <!-- Breeding path will be displayed here -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Select Result Pal Modal -->
+<div class="modal fade" id="selectResultModal" tabindex="-1" aria-labelledby="selectResultModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="selectResultModalLabel">
+                    <i class="fas fa-bullseye me-2"></i>Select Target Pal
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-search"></i></span>
+                        <input type="text" class="form-control" id="resultPalSearch" placeholder="Search for target pal...">
+                    </div>
+                </div>
+                <div class="row" id="resultPalsGrid">
+                    <!-- Target pals will be displayed here -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const palSearch = document.getElementById('palSearch');
+    const palItems = document.querySelectorAll('.pal-item');
+    const selectedPals = document.getElementById('selectedPals');
+    const selectedCount = document.getElementById('selectedCount');
+    const clearSelection = document.getElementById('clearSelection');
+    const calculateBtn = document.getElementById('calculateBtn');
+    const resultsSection = document.getElementById('resultsSection');
+    const selectionSection = document.getElementById('selectionSection');
+    const loadingResults = document.getElementById('loadingResults');
+    const breedingResults = document.getElementById('breedingResults');
+    const stepsContainer = document.getElementById('stepsContainer');
+    const noCombinations = document.getElementById('noCombinations');
+    const nextStepBtn = document.getElementById('nextStepBtn');
+    const selectResultBtn = document.getElementById('selectResultBtn');
+    
+    let selectedPalIds = new Set();
+    let allAvailablePals = new Set(); // All pals available for breeding (initial + bred)
+    let stepResults = []; // Store results for each step
+    let currentStep = 0;
+    let targetPal = null; // Store the selected target pal
+    
+    // Search functionality
+    palSearch.addEventListener('input', function() {
+        const searchTerm = this.value.toLowerCase();
+        
+        palItems.forEach(item => {
+            const palName = item.getAttribute('data-name');
+            if (palName.includes(searchTerm)) {
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    });
+    
+    // Pal selection
+    document.querySelectorAll('.pal-checkbox').forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            const palId = parseInt(this.value);
+            const palCard = this.closest('.pal-select-card');
+            const palName = palCard.querySelector('.card-title').textContent;
+            const palImage = palCard.querySelector('.pal-image')?.src || '';
+            
+            if (this.checked) {
+                selectedPalIds.add(palId);
+                addSelectedPal(palId, palName, palImage);
+            } else {
+                selectedPalIds.delete(palId);
+                removeSelectedPal(palId);
+            }
+            
+            updateUI();
+        });
+    });
+    
+    // Clear selection
+    clearSelection.addEventListener('click', function() {
+        selectedPalIds.clear();
+        document.querySelectorAll('.pal-checkbox').forEach(cb => cb.checked = false);
+        selectedPals.innerHTML = '';
+        updateUI();
+        hideResults();
+    });
+    
+    // Calculate breeding
+    calculateBtn.addEventListener('click', function() {
+        startBreedingCalculation();
+    });
+    
+    // Select result pal
+    selectResultBtn.addEventListener('click', function() {
+        showResultPalSelector();
+    });
+    
+    function addSelectedPal(palId, palName, palImage) {
+        const palElement = document.createElement('div');
+        palElement.className = 'selected-pal-item d-flex align-items-center bg-light rounded p-2';
+        palElement.setAttribute('data-pal-id', palId);
+        palElement.innerHTML = `
+            ${palImage ? `<img src="${palImage}" alt="${palName}" class="me-2" style="width: 30px; height: 30px; object-fit: cover; border-radius: 4px;">` : ''}
+            <span class="me-2">${palName}</span>
+            <button class="btn btn-sm btn-outline-danger" onclick="removePalFromSelection(${palId})">
+                <i class="fas fa-times"></i>
+            </button>
+        `;
+        selectedPals.appendChild(palElement);
+    }
+    
+    function removeSelectedPal(palId) {
+        const palElement = selectedPals.querySelector(`[data-pal-id="${palId}"]`);
+        if (palElement) {
+            palElement.remove();
+        }
+    }
+    
+    function updateUI() {
+        selectedCount.textContent = selectedPalIds.size;
+        
+        if (selectedPalIds.size >= 2) {
+            calculateBtn.style.display = 'inline-block';
+            selectResultBtn.style.display = 'inline-block';
+        } else {
+            calculateBtn.style.display = 'none';
+            selectResultBtn.style.display = 'none';
+        }
+    }
+    
+    function showResultPalSelector() {
+        // Load all pals for selection
+        fetch('/api/pals')
+            .then(response => response.json())
+            .then(pals => {
+                const resultPalsGrid = document.getElementById('resultPalsGrid');
+                let palsHTML = '';
+                
+                pals.forEach(pal => {
+                    palsHTML += `
+                        <div class="col-md-3 col-lg-2 mb-3 result-pal-item" data-name="${pal.name.toLowerCase()}" data-id="${pal.id}">
+                            <div class="card result-pal-select-card h-100" onclick="selectTargetPal(${pal.id}, '${pal.name}', '${pal.image_url || ''}')">
+                                ${pal.image_url ? 
+                                    `<img src="${pal.image_url}" class="card-img-top pal-image" alt="${pal.name}" loading="lazy" decoding="async">` : 
+                                    '<div class="card-img-top pal-image d-flex align-items-center justify-content-center bg-light"><i class="fas fa-question text-muted"></i></div>'
+                                }
+                                <div class="card-body p-2">
+                                    <div class="d-flex justify-content-between align-items-start mb-1">
+                                        <h6 class="card-title mb-0 small">${pal.name}</h6>
+                                        ${pal.no && pal.no !== '-1' ? `<small class="text-muted">#${pal.no}</small>` : ''}
+                                    </div>
+                                    
+                                    ${pal.elements && pal.elements.length > 0 ? `
+                                        <div class="mb-1">
+                                            ${pal.elements.map(element => `<span class="badge bg-info element-badge small">${element}</span>`).join('')}
+                                        </div>
+                                    ` : ''}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                resultPalsGrid.innerHTML = palsHTML;
+                
+                // Add search functionality for result pals
+                const resultPalSearch = document.getElementById('resultPalSearch');
+                resultPalSearch.addEventListener('input', function() {
+                    const searchTerm = this.value.toLowerCase();
+                    const resultPalItems = document.querySelectorAll('.result-pal-item');
+                    
+                    resultPalItems.forEach(item => {
+                        const palName = item.getAttribute('data-name');
+                        if (palName.includes(searchTerm)) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+                
+                // Show the modal
+                const modal = new bootstrap.Modal(document.getElementById('selectResultModal'));
+                modal.show();
+            })
+            .catch(error => {
+                console.error('Error loading pals:', error);
+                alert('Error loading pals. Please try again.');
+            });
+    }
+    
+    function startBreedingCalculation() {
+        // Initialize breeding state
+        allAvailablePals = new Set(selectedPalIds);
+        stepResults = [];
+        currentStep = 0;
+        
+        // Hide selection, show results
+        selectionSection.style.display = 'none';
+        showResults();
+        
+        // Calculate first step
+        calculateStep();
+    }
+    
+    function calculateStep() {
+        currentStep++;
+        
+        // Show loading state
+        loadingResults.style.display = 'block';
+        breedingResults.style.display = 'none';
+        nextStepBtn.style.display = 'none';
+        
+        // Call API to get breeding combinations for current available pals
+        fetch('/api/breeding-combinations', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                pal_ids: Array.from(allAvailablePals)
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Hide loading
+            loadingResults.style.display = 'none';
+            breedingResults.style.display = 'block';
+            
+            if (data.error) {
+                stepsContainer.innerHTML = `
+                    <div class="alert alert-warning">
+                        <i class="fas fa-exclamation-triangle me-2"></i>${data.error}
+                    </div>
+                `;
+                return;
+            }
+            
+            // Filter out combinations that were already found in previous steps
+            const newCombinations = data.combinations.filter(combo => {
+                return !stepResults.some(step => 
+                    step.combinations.some(existingCombo => 
+                        existingCombo.child.id === combo.child.id
+                    )
+                );
+            });
+            
+            // Store step results
+            stepResults.push({
+                step: currentStep,
+                combinations: newCombinations,
+                availablePals: Array.from(allAvailablePals)
+            });
+            
+            // Add new children to available pals
+            newCombinations.forEach(combo => {
+                allAvailablePals.add(combo.child.id);
+            });
+            
+            // Display all steps
+            displayAllSteps();
+            
+            // Show/hide next step button
+            if (newCombinations.length > 0) {
+                nextStepBtn.style.display = 'inline-block';
+            } else {
+                nextStepBtn.style.display = 'none';
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            loadingResults.style.display = 'none';
+            breedingResults.style.display = 'block';
+            stepsContainer.innerHTML = `
+                <div class="alert alert-danger">
+                    <i class="fas fa-exclamation-triangle me-2"></i>Error loading breeding combinations. Please try again.
+                </div>
+            `;
+        });
+    }
+    
+    function displayAllSteps() {
+        let allStepsHtml = '';
+        
+        stepResults.forEach((stepData, stepIndex) => {
+            const stepNumber = stepData.step;
+            const combinations = stepData.combinations;
+            
+            allStepsHtml += `
+                <div class="mb-4">
+                    <h4 class="text-primary">
+                        <i class="fas fa-${stepNumber} me-2"></i>Step ${stepNumber}: Breeding Combinations
+                    </h4>
+                    <p class="text-muted">Available pals: ${stepData.availablePals.length} | New combinations found: ${combinations.length}</p>
+            `;
+            
+            if (combinations.length === 0) {
+                allStepsHtml += `
+                    <div class="text-center py-3">
+                        <i class="fas fa-info-circle text-muted mb-2"></i>
+                        <p class="text-muted mb-0">No new breeding combinations found in this step.</p>
+                    </div>
+                `;
+            } else {
+                combinations.forEach((combo, index) => {
+                    allStepsHtml += `
+                        <div class="breeding-combo-card mb-3 p-3 border rounded">
+                            <div class="row align-items-center">
+                                <div class="col-md-8">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <div class="d-flex align-items-center me-3">
+                                            ${combo.parent1.image_url ? 
+                                                `<img src="${combo.parent1.image_url}" alt="${combo.parent1.name}" class="me-2" style="width: 40px; height: 40px; object-fit: cover; border-radius: 4px;">` : 
+                                                '<div class="me-2" style="width: 40px; height: 40px; background: #f8f9fa; border-radius: 4px; display: flex; align-items: center; justify-content: center;"><i class="fas fa-question text-muted"></i></div>'
+                                            }
+                                            <span class="fw-bold">${combo.parent1.name}</span>
+                                        </div>
+                                        <i class="fas fa-plus mx-3 text-muted"></i>
+                                        <div class="d-flex align-items-center me-3">
+                                            ${combo.parent2.image_url ? 
+                                                `<img src="${combo.parent2.image_url}" alt="${combo.parent2.name}" class="me-2" style="width: 40px; height: 40px; object-fit: cover; border-radius: 4px;">` : 
+                                                '<div class="me-2" style="width: 40px; height: 40px; background: #f8f9fa; border-radius: 4px; display: flex; align-items: center; justify-content: center;"><i class="fas fa-question text-muted"></i></div>'
+                                            }
+                                            <span class="fw-bold">${combo.parent2.name}</span>
+                                        </div>
+                                        <i class="fas fa-equals mx-3 text-muted"></i>
+                                        <div class="d-flex align-items-center">
+                                            ${combo.child.image_url ? 
+                                                `<img src="${combo.child.image_url}" alt="${combo.child.name}" class="me-2" style="width: 40px; height: 40px; object-fit: cover; border-radius: 4px;">` : 
+                                                '<div class="me-2" style="width: 40px; height: 40px; background: #f8f9fa; border-radius: 4px; display: flex; align-items: center; justify-content: center;"><i class="fas fa-question text-muted"></i></div>'
+                                            }
+                                            <span class="fw-bold text-success">${combo.child.name}</span>
+                                            ${combo.child.no ? `<small class="text-muted ms-1">#${combo.child.no}</small>` : ''}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 text-end">
+                                    <a href="/pal/${combo.child.id}" class="btn btn-sm btn-outline-primary me-1">
+                                        <i class="fas fa-eye me-1"></i>View Child
+                                    </a>
+                                    <button class="btn btn-sm btn-outline-info" onclick="showBreedingPath(${combo.child.id}, '${combo.child.name}')">
+                                        <i class="fas fa-project-diagram me-1"></i>Path
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+            
+            allStepsHtml += `</div>`;
+        });
+        
+        stepsContainer.innerHTML = allStepsHtml;
+    }
+    
+    function showBreedingPath(childId, childName) {
+        // Set modal title
+        document.getElementById('modalPalName').textContent = childName;
+        
+        // Find the breeding path for this child
+        const path = findBreedingPath(childId);
+        
+        // Display the path in the modal
+        const pathContent = document.getElementById('breedingPathContent');
+        pathContent.innerHTML = generatePathHTML(path);
+        
+        // Show the modal
+        const modal = new bootstrap.Modal(document.getElementById('breedingPathModal'));
+        modal.show();
+    }
+    
+    function findBreedingPath(childId) {
+        const path = [];
+        
+        // Search through all steps to find the breeding path
+        for (let stepIndex = stepResults.length - 1; stepIndex >= 0; stepIndex--) {
+            const step = stepResults[stepIndex];
+            const combination = step.combinations.find(combo => combo.child.id === childId);
+            
+            if (combination) {
+                path.unshift({
+                    step: step.step,
+                    parent1: combination.parent1,
+                    parent2: combination.parent2,
+                    child: combination.child
+                });
+                
+                // Recursively find paths for parents if they're not in initial selection
+                if (!selectedPalIds.has(combination.parent1.id)) {
+                    const parent1Path = findBreedingPath(combination.parent1.id);
+                    if (parent1Path.length > 0) {
+                        path.unshift(...parent1Path);
+                    }
+                }
+                
+                if (!selectedPalIds.has(combination.parent2.id)) {
+                    const parent2Path = findBreedingPath(combination.parent2.id);
+                    if (parent2Path.length > 0) {
+                        path.unshift(...parent2Path);
+                    }
+                }
+                
+                break;
+            }
+        }
+        
+        return path;
+    }
+    
+    function generatePathHTML(path) {
+        if (path.length === 0) {
+            return `
+                <div class="text-center py-4">
+                    <i class="fas fa-info-circle fa-2x text-muted mb-3"></i>
+                    <h5 class="text-muted">No Breeding Path Found</h5>
+                    <p class="text-muted">This pal was not bred from the selected pals.</p>
+                </div>
+            `;
+        }
+        
+        let pathHTML = '<div class="breeding-path">';
+        
+        path.forEach((step, index) => {
+            pathHTML += `
+                <div class="path-step mb-3 p-3 border rounded">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center">
+                            <span class="badge bg-primary me-3">Step ${step.step}</span>
+                            <div class="d-flex align-items-center me-3">
+                                ${step.parent1.image_url ? 
+                                    `<img src="${step.parent1.image_url}" alt="${step.parent1.name}" class="me-2" style="width: 40px; height: 40px; object-fit: cover; border-radius: 4px;">` : 
+                                    '<div class="me-2" style="width: 40px; height: 40px; background: #f8f9fa; border-radius: 4px; display: flex; align-items: center; justify-content: center;"><i class="fas fa-question text-muted"></i></div>'
+                                }
+                                <span class="fw-bold">${step.parent1.name}</span>
+                            </div>
+                            <i class="fas fa-plus mx-3 text-muted"></i>
+                            <div class="d-flex align-items-center me-3">
+                                ${step.parent2.image_url ? 
+                                    `<img src="${step.parent2.image_url}" alt="${step.parent2.name}" class="me-2" style="width: 40px; height: 40px; object-fit: cover; border-radius: 4px;">` : 
+                                    '<div class="me-2" style="width: 40px; height: 40px; background: #f8f9fa; border-radius: 4px; display: flex; align-items: center; justify-content: center;"><i class="fas fa-question text-muted"></i></div>'
+                                }
+                                <span class="fw-bold">${step.parent2.name}</span>
+                            </div>
+                            <i class="fas fa-equals mx-3 text-muted"></i>
+                            <div class="d-flex align-items-center">
+                                ${step.child.image_url ? 
+                                    `<img src="${step.child.image_url}" alt="${step.child.name}" class="me-2" style="width: 40px; height: 40px; object-fit: cover; border-radius: 4px;">` : 
+                                    '<div class="me-2" style="width: 40px; height: 40px; background: #f8f9fa; border-radius: 4px; display: flex; align-items: center; justify-content: center;"><i class="fas fa-question text-muted"></i></div>'
+                                }
+                                <span class="fw-bold text-success">${step.child.name}</span>
+                                ${step.child.no ? `<small class="text-muted ms-1">#${step.child.no}</small>` : ''}
+                            </div>
+                        </div>
+                        <div>
+                            <a href="/pal/${step.child.id}" class="btn btn-sm btn-outline-primary">
+                                <i class="fas fa-eye me-1"></i>View
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Add arrow between steps (except for the last step)
+            if (index < path.length - 1) {
+                pathHTML += `
+                    <div class="text-center mb-2">
+                        <i class="fas fa-arrow-down text-muted"></i>
+                    </div>
+                `;
+            }
+        });
+        
+        pathHTML += '</div>';
+        return pathHTML;
+    }
+    
+    function showResults() {
+        resultsSection.style.display = 'block';
+        resultsSection.scrollIntoView({ behavior: 'smooth' });
+    }
+    
+    function hideResults() {
+        resultsSection.style.display = 'none';
+        selectionSection.style.display = 'block';
+    }
+    
+    // Global function for removing pals from selection
+    window.removePalFromSelection = function(palId) {
+        selectedPalIds.delete(palId);
+        document.querySelector(`input[value="${palId}"]`).checked = false;
+        removeSelectedPal(palId);
+        updateUI();
+    };
+    
+    // Global function for clearing results
+    window.clearResults = function() {
+        hideResults();
+    };
+    
+    // Global function for calculating next step
+    window.calculateNextStep = function() {
+        calculateStep();
+    };
+    
+    // Global function for going back to breeder
+    window.backToBreeder = function() {
+        window.location.href = '/breeder';
+    };
+    
+    // Global function for showing breeding path
+    window.showBreedingPath = function(childId, childName) {
+        showBreedingPath(childId, childName);
+    };
+    
+    // Global function for selecting target pal
+    window.selectTargetPal = function(palId, palName, palImage) {
+        // Close the modal
+        const modal = bootstrap.Modal.getInstance(document.getElementById('selectResultModal'));
+        modal.hide();
+        
+        // Store the target pal
+        targetPal = {
+            id: palId,
+            name: palName,
+            image_url: palImage
+        };
+        
+        // Check if this pal can be bred from selected pals
+        checkTargetPalBreedable();
+    };
+    
+    function checkTargetPalBreedable() {
+        // Show loading state
+        selectionSection.style.display = 'none';
+        showResults();
+        loadingResults.style.display = 'block';
+        breedingResults.style.display = 'none';
+        
+        // Call API to check if target pal can be bred
+        fetch('/api/check-breedable-pal', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                pal_ids: Array.from(selectedPalIds),
+                target_pal_id: targetPal.id
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Hide loading
+            loadingResults.style.display = 'none';
+            breedingResults.style.display = 'block';
+            
+            if (data.error) {
+                stepsContainer.innerHTML = `
+                    <div class="alert alert-warning">
+                        <i class="fas fa-exclamation-triangle me-2"></i>${data.error}
+                    </div>
+                `;
+                return;
+            }
+            
+            if (data.breedable) {
+                displayTargetPalResult(data);
+            } else {
+                displayTargetPalNotBreedable(data);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            loadingResults.style.display = 'none';
+            breedingResults.style.display = 'block';
+            stepsContainer.innerHTML = `
+                <div class="alert alert-danger">
+                    <i class="fas fa-exclamation-triangle me-2"></i>Error checking breeding possibility. Please try again.
+                </div>
+            `;
+        });
+    }
+    
+    function displayTargetPalResult(data) {
+        const targetPal = data.target_pal;
+        const breedingPath = getFullBreedingPath(data.breeding_path, selectedPalIds);
+        const stepsRequired = data.steps_required;
+        
+        let resultHTML = `
+            <div class="mb-4">
+                <div class="d-flex align-items-center mb-3">
+                    ${targetPal.image_url ? 
+                        `<img src="${targetPal.image_url}" alt="${targetPal.name}" class="me-3" style="width: 60px; height: 60px; object-fit: cover; border-radius: 8px;">` : 
+                        '<div class="me-3" style="width: 60px; height: 60px; background: #f8f9fa; border-radius: 8px; display: flex; align-items: center; justify-content: center;"><i class="fas fa-question text-muted"></i></div>'
+                    }
+                    <div>
+                        <h3 class="text-success mb-1">
+                            <i class="fas fa-check-circle me-2"></i>${targetPal.name} Can Be Bred!
+                        </h3>
+                        <p class="text-muted mb-0">Steps required: ${stepsRequired} | Pal #${targetPal.no || 'N/A'}</p>
+                    </div>
+                </div>
+                
+                <div class="alert alert-success">
+                    <i class="fas fa-info-circle me-2"></i>
+                    <strong>Great news!</strong> You can breed ${targetPal.name} from your selected pals in ${stepsRequired} step${stepsRequired > 1 ? 's' : ''}.
+                </div>
+            </div>
+            
+            <div class="mb-4">
+                <h4 class="text-primary">
+                    <i class="fas fa-route me-2"></i>Complete Breeding Path to ${targetPal.name}
+                </h4>
+                <p class="text-muted">Follow these steps in order to breed your target pal:</p>
+            </div>
+        `;
+        
+        // Display the full breeding path
+        breedingPath.forEach((step, index) => {
+            resultHTML += `
+                <div class="path-step mb-3 p-3 border rounded">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center">
+                            <span class="badge bg-primary me-3">Step ${step.step}</span>
+                            <div class="d-flex align-items-center me-3">
+                                ${step.parent1.image_url ? 
+                                    `<img src="${step.parent1.image_url}" alt="${step.parent1.name}" class="me-2" style="width: 40px; height: 40px; object-fit: cover; border-radius: 4px;">` : 
+                                    '<div class="me-2" style="width: 40px; height: 40px; background: #f8f9fa; border-radius: 4px; display: flex; align-items: center; justify-content: center;"><i class="fas fa-question text-muted"></i></div>'
+                                }
+                                <span class="fw-bold">${step.parent1.name}</span>
+                                ${step.parent1.no ? `<small class="text-muted ms-1">#${step.parent1.no}</small>` : ''}
+                            </div>
+                            <i class="fas fa-plus mx-3 text-muted"></i>
+                            <div class="d-flex align-items-center me-3">
+                                ${step.parent2.image_url ? 
+                                    `<img src="${step.parent2.image_url}" alt="${step.parent2.name}" class="me-2" style="width: 40px; height: 40px; object-fit: cover; border-radius: 4px;">` : 
+                                    '<div class="me-2" style="width: 40px; height: 40px; background: #f8f9fa; border-radius: 4px; display: flex; align-items: center; justify-content: center;"><i class="fas fa-question text-muted"></i></div>'
+                                }
+                                <span class="fw-bold">${step.parent2.name}</span>
+                                ${step.parent2.no ? `<small class="text-muted ms-1">#${step.parent2.no}</small>` : ''}
+                            </div>
+                            <i class="fas fa-equals mx-3 text-muted"></i>
+                            <div class="d-flex align-items-center">
+                                ${step.child.image_url ? 
+                                    `<img src="${step.child.image_url}" alt="${step.child.name}" class="me-2" style="width: 40px; height: 40px; object-fit: cover; border-radius: 4px;">` : 
+                                    '<div class="me-2" style="width: 40px; height: 40px; background: #f8f9fa; border-radius: 4px; display: flex; align-items: center; justify-content: center;"><i class="fas fa-question text-muted"></i></div>'
+                                }
+                                <span class="fw-bold text-success">${step.child.name}</span>
+                                ${step.child.no ? `<small class="text-muted ms-1">#${step.child.no}</small>` : ''}
+                            </div>
+                        </div>
+                        <div>
+                            <a href="/pal/${step.child.id}" class="btn btn-sm btn-outline-primary">
+                                <i class="fas fa-eye me-1"></i>View
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            `;
+            if (index < breedingPath.length - 1) {
+                resultHTML += `
+                    <div class="text-center mb-2">
+                        <i class="fas fa-arrow-down text-muted"></i>
+                    </div>
+                `;
+            }
+        });
+        
+        // Add summary section
+        resultHTML += `
+            <div class="mt-4 p-3 bg-light rounded">
+                <h5 class="text-primary mb-2">
+                    <i class="fas fa-clipboard-list me-2"></i>Breeding Summary
+                </h5>
+                <div class="row">
+                    <div class="col-md-4">
+                        <strong>Total Steps:</strong> ${breedingPath.length}
+                    </div>
+                    <div class="col-md-4">
+                        <strong>Intermediate Pals:</strong> ${breedingPath.length - 1}
+                    </div>
+                    <div class="col-md-4">
+                        <strong>Final Result:</strong> ${targetPal.name}
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        stepsContainer.innerHTML = resultHTML;
+    }
+    
+    // Helper to recursively flatten the full breeding path
+    function getFullBreedingPath(path, initialPals) {
+        const fullPath = [];
+        const seen = new Set();
+        function addStep(step) {
+            if (!step || seen.has(step.child.id)) return;
+            if (step.parent1 && !initialPals.has(step.parent1.id)) {
+                const parent1Step = path.find(s => s.child.id === step.parent1.id);
+                addStep(parent1Step);
+            }
+            if (step.parent2 && !initialPals.has(step.parent2.id)) {
+                const parent2Step = path.find(s => s.child.id === step.parent2.id);
+                addStep(parent2Step);
+            }
+            fullPath.push(step);
+            seen.add(step.child.id);
+        }
+        if (path && path.length > 0) {
+            addStep(path[path.length - 1]);
+        }
+        return fullPath;
+    }
+    
+    function displayTargetPalNotBreedable(data) {
+        const targetPal = data.target_pal;
+        
+        let resultHTML = `
+            <div class="mb-4">
+                <div class="d-flex align-items-center mb-3">
+                    ${targetPal.image_url ? 
+                        `<img src="${targetPal.image_url}" alt="${targetPal.name}" class="me-3" style="width: 60px; height: 60px; object-fit: cover; border-radius: 8px;">` : 
+                        '<div class="me-3" style="width: 60px; height: 60px; background: #f8f9fa; border-radius: 8px; display: flex; align-items: center; justify-content: center;"><i class="fas fa-question text-muted"></i></div>'
+                    }
+                    <div>
+                        <h3 class="text-danger mb-1">
+                            <i class="fas fa-times-circle me-2"></i>${targetPal.name} Cannot Be Bred
+                        </h3>
+                        <p class="text-muted mb-0">Pal #${targetPal.no || 'N/A'}</p>
+                    </div>
+                </div>
+                
+                <div class="alert alert-warning">
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    <strong>Sorry!</strong> ${targetPal.name} cannot be bred from your selected pals with any combination of breeding steps.
+                </div>
+                
+                <div class="text-center py-4">
+                    <i class="fas fa-info-circle fa-2x text-muted mb-3"></i>
+                    <h5 class="text-muted">Try Different Pals</h5>
+                    <p class="text-muted">Consider selecting different base pals or check if ${targetPal.name} can be obtained through other breeding combinations.</p>
+                </div>
+            </div>
+        `;
+        
+        stepsContainer.innerHTML = resultHTML;
+    }
+});
+</script>
+
+<style>
+.breeding-combo-card {
+    transition: all 0.3s ease;
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.05), rgba(192, 132, 252, 0.05));
+    border: 2px solid var(--primary-purple-light) !important;
+    border-radius: 12px !important;
+}
+
+.breeding-combo-card:hover {
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(192, 132, 252, 0.1));
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-purple);
+    border-color: var(--primary-purple) !important;
+}
+
+.breeding-combo-card .text-success {
+    color: #10B981 !important;
+}
+
+.path-step {
+    transition: all 0.3s ease;
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.05), rgba(192, 132, 252, 0.05));
+    border: 2px solid var(--primary-purple-light) !important;
+    border-radius: 12px !important;
+}
+
+.path-step:hover {
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(192, 132, 252, 0.1));
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-purple);
+    border-color: var(--primary-purple) !important;
+}
+
+.pal-select-card {
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: 2px solid transparent;
+    border-radius: 12px;
+}
+
+.pal-select-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-purple-hover);
+    border-color: var(--primary-purple-light);
+}
+
+.pal-select-card.selected {
+    border-color: var(--primary-purple);
+    box-shadow: 0 0 0 0.2rem rgba(139, 92, 246, 0.25);
+}
+
+.selected-pal-item {
+    transition: all 0.3s ease;
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(192, 132, 252, 0.1)) !important;
+    border: 2px solid var(--primary-purple-light);
+    border-radius: 12px;
+}
+
+.selected-pal-item:hover {
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(192, 132, 252, 0.15)) !important;
+    border-color: var(--primary-purple);
+    transform: translateY(-1px);
+}
+
+.pal-image {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.pal-select-card:hover .pal-image {
+    transform: scale(1.05);
+}
+
+.element-badge {
+    font-size: 0.7em;
+    margin-right: 0.2rem;
+    background: var(--gradient-secondary) !important;
+    border: none;
+    border-radius: 8px;
+    padding: 4px 8px;
+    font-weight: 500;
+}
+
+.result-pal-select-card {
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: 2px solid transparent;
+    border-radius: 12px;
+}
+
+.result-pal-select-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-purple-hover);
+    border-color: var(--primary-purple-light);
+}
+
+.btn-outline-info {
+    border-color: var(--primary-purple);
+    color: var(--primary-purple);
+}
+
+.btn-outline-info:hover {
+    background-color: var(--primary-purple);
+    border-color: var(--primary-purple);
+    color: white;
+}
+
+.btn-outline-secondary {
+    border-color: var(--primary-purple-light);
+    color: var(--primary-purple);
+}
+
+.btn-outline-secondary:hover {
+    background-color: var(--primary-purple-light);
+    border-color: var(--primary-purple-light);
+    color: white;
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #10B981, #34D399) !important;
+    border: none !important;
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+}
+
+.btn-success:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+}
+</style>
+{% endblock %}
